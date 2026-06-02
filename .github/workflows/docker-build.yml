@@ -1,4 +1,4 @@
-name: Build CloudForge
+name: Build and Push CloudForge
 
 on:
   push:
@@ -6,12 +6,22 @@ on:
       - main
 
 jobs:
-  docker-build:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Build Docker Image
-        run: docker build -t cloudforge:v1 .
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cloudforge:latest
