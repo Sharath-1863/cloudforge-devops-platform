@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "CloudForge CI/CD Pipeline Working"
+    return "CloudForge Version 2"
 
 @app.route("/health")
 def health():
