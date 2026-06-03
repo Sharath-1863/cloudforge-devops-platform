@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cloudforge
 spec:
-  replicas: 5
+  replicas: 8
   selector:
     matchLabels:
       app: cloudforge
@@ -15,6 +15,6 @@ spec:
       containers:
       - name: cloudforge
         image: sharath2003/cloudforge:v1
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
